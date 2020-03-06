@@ -1,0 +1,6 @@
+bin
+vendor
+phpunit.xml
+.php_cs.cache
+.DS_Store
+
