@@ -15,9 +15,6 @@ class Authentication
         $this->client = $client;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function authenticateBySecret($clientId, $secret): array
     {
         $params = [
@@ -29,9 +26,6 @@ class Authentication
         return $this->authenticate($params);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function authenticateByRefreshToken($refreshToken): array
     {
         $params = [
