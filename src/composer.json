@@ -1,0 +1,44 @@
+{
+  "name": "humansix/sharetribe-php-sdk",
+  "description": "Sharetribe API Integration client",
+  "license": "OSL-3.0",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Humansix",
+      "homepage": "https://www.humansix.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Sharetribe\\Api\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Sharetribe\\Api\\tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": ">=7.3",
+    "psr/http-message": "^1.0",
+    "psr/http-client": "^1.0",
+    "psr/http-factory": "^1.0",
+    "psr/http-message-implementation": "^1.0",
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.14",
+    "phpunit/phpunit": "^7.0",
+    "phpspec/phpspec": "^5.0",
+    "symfony/yaml": "^4.2",
+    "donatj/mock-webserver": "^2.0",
+    "http-interop/http-factory-guzzle": "^1.0",
+    "php-http/guzzle6-adapter": "^2.0"
+  },
+  "config": {
+    "bin-dir": "bin",
+    "platform": {
+      "php": "7.3.11"
+    }
+  }
+}
