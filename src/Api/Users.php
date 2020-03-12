@@ -3,8 +3,9 @@
 namespace Sharetribe\Sdk\Api;
 
 use Sharetribe\Sdk\Client;
+use Sharetribe\Sdk\Result\Paginated;
 
-class Users
+class Users implements ApiInterface
 {
     const USERS_QUERY_URI = '/integration_api/users/query';
 
@@ -16,12 +17,17 @@ class Users
         $this->token = $token;
     }
 
-    public function query(array $params = []): array
+    public function query(array $filters = [], array $params = []): array
     {
-    	$headers = [
-    		'Authorization' => 'bearer ' . $this->token->getAccessToken(),
-    		'Accept' => 'application/json',
-    	];
-        return $this->client->call('GET', self::USERS_QUERY_URI, $params, $headers);
+        $headers = [
+            'Authorization' => 'bearer ' . $this->token->getAccessToken(),
+            'Accept' => 'application/json',
+        ];
+        return $this->client->call('GET', self::USERS_QUERY_URI, $filters, $params, $headers);
+    }
+
+    public function getAll(): \Iterator
+    {
+        return new Paginated($this, 'query');
     }
 }

@@ -36,9 +36,14 @@ class Client implements LoggerAwareInterface
     }
 
 
-    public function call($httpMethod, $uri, $params = null, $headers = null): array
+    public function call($httpMethod, $uri, $filters = null, $params = null, $headers = null): array
     {
+        if (null !== $filters && is_array($filters)) {
+            $uri .= '?' . http_build_query($filters, '', ',');
+        }
+
         $request = $this->requestFactory->createRequest($httpMethod, self::SHARETRIBE_INTEGRATION_API . $uri);
+
         if (null !== $params && is_array($params)) {
             $request = $request->withBody($this->streamFactory->createStream(http_build_query($params)));
         }

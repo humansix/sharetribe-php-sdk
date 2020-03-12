@@ -42,6 +42,6 @@ class Authentication
             'Content-Type' => 'application/x-www-form-urlencoded; charset=utf-8',
             'Accept' => 'application/json',
         ];
-        return $this->client->call('POST', self::AUTH_TOKEN_URI, $params, $headers);
+        return $this->client->call('POST', self::AUTH_TOKEN_URI, [], $params, $headers);
     }
 }
