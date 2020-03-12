@@ -30,10 +30,9 @@ class Paginated implements \Iterator
         $this->api = $api;
         $this->method = $method;
         $this->filter = $filter;
-        $this->totalItems = $date['totalItems'];
         $result = call_user_func([$this->api, $this->method], $filter);
         $this->items = $result['data'];
-        $this->totalItems = $result['meta']['totalItems'];echo $this->totalItems;
+        $this->totalItems = $result['meta']['totalItems'];
         $this->totalPages = $result['meta']['totalPages'];
         $this->page = $result['meta']['page'];
         $this->perPage = $result['meta']['perPage'];
