@@ -7,7 +7,8 @@ use Sharetribe\Sdk\Result\Paginated;
 
 class Listings implements ApiInterface
 {
-    const USERS_QUERY_URI = '/integration_api/listings/query';
+    const LISTINGS_QUERY_URI = '/integration_api/listings/query';
+    const LISTINGS_SHOW_URI = '/integration_api/listings/show';
 
     protected $client;
 
@@ -23,7 +24,15 @@ class Listings implements ApiInterface
             'Authorization' => 'bearer ' . $this->token->getAccessToken(),
             'Accept' => 'application/json',
         ];
-        return $this->client->call('GET', self::USERS_QUERY_URI, $filters, $params, $headers);
+        return $this->client->call('GET', self::LISTINGS_QUERY_URI, $filters, $params, $headers);
+    }
+
+    public function show($id): array {
+        $headers = [
+            'Authorization' => 'bearer ' . $this->token->getAccessToken(),
+            'Accept' => 'application/json',
+        ];
+        return $this->client->call('GET', self::LISTINGS_SHOW_URI, ['id' => $id], [], $headers);
     }
 
     public function getAll(): \Iterator
