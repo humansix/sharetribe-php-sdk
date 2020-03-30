@@ -5,6 +5,7 @@ namespace Sharetribe\Sdk;
 use Sharetribe\Sdk\Api\Authentication;
 use Sharetribe\Sdk\Api\Users;
 use Sharetribe\Sdk\Api\Listings;
+use Sharetribe\Sdk\Api\CurrentUser;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -44,5 +45,10 @@ class Sharetribe
     public function listings(): Listings
     {
         return new Listings($this->client, $this->token);
+    }
+
+    public function currentUser(): CurrentUser
+    {
+        return new CurrentUser($this->client, $this->token);
     }
 }
