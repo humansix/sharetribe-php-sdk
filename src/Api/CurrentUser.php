@@ -27,7 +27,7 @@ class CurrentUser implements ApiInterface
             'Authorization' => 'bearer ' . $baerer,
             'Accept' => 'application/json',
         ];
-        return $this->client->call('GET', self::CURRENT_USER . '/show', $filters, $params, $headers);
+        return $this->client->call('GET', self::CURRENT_USER . '/show', $params, $headers);
     }
 
 }

@@ -35,20 +35,19 @@ class Client implements LoggerAwareInterface
         $this->logger = new NullLogger();
     }
 
-
-    public function call($httpMethod, $uri, $filters = null, $params = null, $headers = null): array
+    public function call($httpMethod, $uri, $params = null, $headers = null): array
     {
-        if (null !== $filters && is_array($filters)) {
-            $uri .= '?' . http_build_query($filters, '', ',');
+        if ('GET' == $httpMethod && null !== $params && is_array($params)) {
+            $uri .= '?' . http_build_query($params, '', '&');
         }
 
         $request = $this->requestFactory->createRequest($httpMethod, self::SHARETRIBE_INTEGRATION_API . $uri);
 
-        if (null !== $params && is_array($params)) {
+        if ('GET' != $httpMethod && null !== $params && is_array($params)) {
             $request = $request->withBody($this->streamFactory->createStream(http_build_query($params)));
         }
 
-        if (null !== $params && is_string($params)) {
+        if ('GET' != $httpMethod && null !== $params && is_string($params)) {
             $request = $request->withBody($this->streamFactory->createStream($params));
         }
 
@@ -59,7 +58,6 @@ class Client implements LoggerAwareInterface
         }
 
         $response = $this->httpClient->sendRequest($request);
-
         return json_decode($response->getBody()->getContents(), true);
     }
 

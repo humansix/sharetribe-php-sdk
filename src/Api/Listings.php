@@ -18,13 +18,13 @@ class Listings implements ApiInterface
         $this->token = $token;
     }
 
-    public function query(array $filters = [], array $params = []): array
+    public function query(array $params = []): array
     {
         $headers = [
             'Authorization' => 'bearer ' . $this->token->getAccessToken(),
             'Accept' => 'application/json',
         ];
-        return $this->client->call('GET', self::LISTINGS_QUERY_URI, $filters, $params, $headers);
+        return $this->client->call('GET', self::LISTINGS_QUERY_URI, $params, $headers);
     }
 
     public function show($id): array {
@@ -32,7 +32,12 @@ class Listings implements ApiInterface
             'Authorization' => 'bearer ' . $this->token->getAccessToken(),
             'Accept' => 'application/json',
         ];
-        return $this->client->call('GET', self::LISTINGS_SHOW_URI, ['id' => $id], [], $headers);
+        return $this->client->call('GET', self::LISTINGS_SHOW_URI, ['id' => $id], $headers);
+    }
+
+    public function get(array $params = []): \Iterator
+    {
+        return new Paginated($this, 'query', $params);
     }
 
     public function getAll(): \Iterator
