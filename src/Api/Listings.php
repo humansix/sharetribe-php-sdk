@@ -27,12 +27,18 @@ class Listings implements ApiInterface
         return $this->client->call('GET', self::LISTINGS_QUERY_URI, $params, $headers);
     }
 
-    public function show($id): array {
+    public function show($id, array $params = []): array {
         $headers = [
             'Authorization' => 'bearer ' . $this->token->getAccessToken(),
             'Accept' => 'application/json',
         ];
-        return $this->client->call('GET', self::LISTINGS_SHOW_URI, ['id' => $id], $headers);
+        if ($params) {
+            foreach ($params as $name => $param) {
+                $params[$name] = implode(',', $param);
+            }
+        }
+        $params = ['id' => $id] + $params;
+        return $this->client->call('GET', self::LISTINGS_SHOW_URI, $params, $headers);
     }
 
     public function get(array $params = []): \Iterator
