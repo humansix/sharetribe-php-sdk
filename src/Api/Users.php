@@ -7,7 +7,8 @@ use Sharetribe\Sdk\Result\Paginated;
 
 class Users implements ApiInterface
 {
-    const USERS_QUERY_URI = '/integration_api/users/query';
+    public const USERS_QUERY_URI = '/integration_api/users/query';
+    public const USERS_SHOW_URI = '/integration_api/users/show';
 
     protected $client;
 
@@ -26,8 +27,18 @@ class Users implements ApiInterface
         return $this->client->call('GET', self::USERS_QUERY_URI, $params, $headers);
     }
 
-    public function getAll(): \Iterator
+    public function get(array $params = []): \Iterator
     {
-        return new Paginated($this, 'query');
+        return new Paginated($this, 'query', $params);
+    }
+
+    public function show($id, array $params = []): array
+    {
+        $headers = [
+            'Authorization' => 'bearer ' . $this->token->getAccessToken(),
+            'Accept' => 'application/json',
+        ];
+        $params = ['id' => $id] + $params;
+        return $this->client->call('GET', self::USERS_SHOW_URI, $params, $headers);
     }
 }
